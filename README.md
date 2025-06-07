@@ -5,11 +5,11 @@
 [![Python Version](https://img.shields.io/badge/python-3.7%2B-blue.svg)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/platform-linux-lightgrey.svg)](https://www.linux.org/)
-[![Rundeck API](https://img.shields.io/badge/Runbook%20Automation%20API-v46-orange.svg)](https://docs.rundeck.com/docs/api/)
+[![Rundeck API](https://img.shields.io/badge/Rundeck%20API-v46-orange.svg)](https://docs.rundeck.com/docs/api/)
 [![Development Status](https://img.shields.io/badge/status-stable-green.svg)](https://github.com/yourusername/runbook-automation-set-roi)
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-*A powerful Python tool to automatically manage ROI (Return on Investment) metrics for Rundeck jobs*
+*A Python tool to manage ROI (Return on Investment) metrics for Rundeck jobs*
 
 [Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Documentation](#-documentation) • [Contributing](#-contributing)
 
@@ -19,15 +19,15 @@
 
 ## 📋 Overview
 
-**Runbook Automation ROI Status** is a comprehensive Python tool designed to streamline the management of ROI metrics in Rundeck job definitions. It automatically detects existing configurations, adds missing ROI fields, and provides detailed analytics to track automation value across your infrastructure.
+**Runbook Automation ROI Status** manages ROI metrics in Rundeck job definitions. It detects existing configurations, adds missing ROI fields, and tracks automation value across projects.
 
-### 🎯 Key Benefits
+### 🎯 Key Capabilities
 
-- **🔍 Smart Detection**: Auto-detects existing ROI plugin configurations
-- **⚡ Bulk Processing**: Handles single projects or entire Rundeck instances
-- **🛡️ Safety First**: Comprehensive dry-run mode with detailed previews
-- **📊 Analytics Ready**: Tracks automation value with standardized metrics
-- **🐧 Linux Optimized**: Built specifically for Linux environments with `.venv` support
+- **🔍 Auto-Detection**: Detects existing ROI plugin configurations
+- **⚡ Bulk Processing**: Processes single projects or all projects
+- **🛡️ Dry-Run Mode**: Preview changes before applying
+- **📊 Metrics Tracking**: Standardized ROI field management
+- **🐧 Linux Support**: Virtual environment integration
 
 ---
 
@@ -42,7 +42,7 @@
 - ✅ Adds "hours" field to jobs that don't have it
 - ✅ Supports dry-run mode for safe testing
 - ✅ Processes single projects or all projects
-- ✅ Comprehensive error handling and logging
+- ✅ Error handling and logging
 
 </td>
 <td width="50%">
@@ -50,9 +50,9 @@
 ### 🚀 Advanced Features
 - ✅ Linux-optimized with virtual environment support
 - ✅ Configurable default values and API versions
-- ✅ Detailed progress reporting and statistics
-- ✅ Secure credential management via environment variables
-- ✅ Robust network error handling with timeouts
+- ✅ Progress reporting and statistics
+- ✅ Environment variable credential management
+- ✅ Network error handling with timeouts
 
 </td>
 </tr>
@@ -64,10 +64,13 @@
 
 | Component | Version | Notes |
 |-----------|---------|-------|
-| **Python** | 3.7+ | Required for modern async features |
-| **Operating System** | Linux | Optimized for Linux environments |
+| **Python** | 3.7+ | Required for type hints and features |
+| **Operating System** | Linux | Linux environment required |
+| **Rundeck Version** | Commercial Only | Runbook Automation or Runbook Automation Self-Hosted |
 | **Rundeck Access** | API Token Required | With appropriate permissions |
 | **Rundeck API** | v46 (configurable) | Supports other versions |
+
+> **⚠️ Important**: This tool only works with commercial versions of Rundeck (Runbook Automation or Runbook Automation Self-Hosted) that include the ROI metrics plugin. It will not work with open-source Rundeck.
 
 ---
 
@@ -84,9 +87,9 @@ cd runbook-automation-set-roi
 ./setup_venv.sh
 ```
 
-> **What this does:**
+> **This script:**
 > - Creates a Python virtual environment in `.venv`
-> - Installs all required dependencies
+> - Installs required dependencies
 > - Sets up the package for development
 
 ### 🔧 Manual Setup
@@ -109,6 +112,22 @@ pip install -e .
 ---
 
 ## ⚙️ Configuration
+
+### 🔑 API Token Generation
+
+To generate an API token in Runbook Automation:
+
+1. **Log into your Runbook Automation instance**
+2. **Navigate to User Profile**:
+   - Click your username in the top-right corner
+   - Select "Profile" from the dropdown menu
+3. **Generate API Token**:
+   - Go to the "User API Tokens" tab
+   - Click "Generate New Token"
+   - Provide a name for the token (e.g., "ROI Manager")
+   - Set appropriate expiration date
+   - Click "Generate Token"
+4. **Copy the token** - it will only be displayed once
 
 ### 🔑 Required Environment Variables
 
@@ -231,7 +250,7 @@ python main.py --apply
 |:---:|:---:|:---:|
 | Fixed duplicate job counting | Intuitive CLI with `--apply`/`--dryrun` | Default dry-run mode |
 | Resolved NoneType errors | Better output formatting | Mutually exclusive options |
-| Enhanced null checking | Clear progress indicators | Comprehensive validation |
+| Enhanced null checking | Clear progress indicators | Input validation |
 
 </div>
 
@@ -292,12 +311,12 @@ graph LR
 
 ### 🔐 Security Features
 
-- ✅ API tokens read from environment variables
-- ✅ No credentials stored in code
-- ✅ HTTPS support for secure communication
-- ✅ Request timeouts to prevent hanging
+- ✅ API tokens from environment variables
+- ✅ No credentials in code
+- ✅ HTTPS support
+- ✅ Request timeouts
 
-### 🚨 Comprehensive Error Handling
+### 🚨 Error Handling
 
 <table>
 <tr>
@@ -327,25 +346,19 @@ graph LR
 <details>
 <summary>🚨 Common Issues & Solutions</summary>
 
-### 1. **"Could not auto-detect ROI plugin name"**
-```bash
-# Solution: Ensure at least one job has ROI metrics configured
-# Check that plugin name contains "roi" and "metric"
-```
-
-### 2. **"Connection error"**
+### 1. **"Connection error"**
 ```bash
 # Solution: Verify RUNDECK_URL and network connectivity
 export RUNDECK_URL='https://your-rundeck-server.com'
 ```
 
-### 3. **"HTTP error 401"**
+### 2. **"HTTP error 401"**
 ```bash
 # Solution: Verify API token validity and permissions
 export RUNDECK_API_TOKEN='your-valid-token'
 ```
 
-### 4. **"No projects found"**
+### 3. **"No projects found"**
 ```bash
 # Solution: Check API token project access permissions
 ```
@@ -438,7 +451,7 @@ export RUNDECK_API_TOKEN='your-valid-token'
 - Bulk processing of Rundeck jobs
 - ROI metrics field addition
 - Project filtering support
-- Comprehensive error handling
+- Error handling
 - Linux virtual environment support
 
 </details>
@@ -470,14 +483,23 @@ This project is licensed under the **MIT License**.
 
 </div>
 
+### ⚠️ Support Disclaimer
+
+This tool is provided **as-is** and is **not part of the general PagerDuty support program**. Support is provided on a best-effort basis through community channels only.
+
+- ✅ Community support via GitHub issues
+- ❌ Not covered by PagerDuty commercial support
+- ❌ No SLA or guaranteed response times
+- ❌ Not officially maintained by PagerDuty
+
 ---
 
 <div align="center">
 
-**Made with ❤️ for the DevOps Community**
+**Built for DevOps Teams**
 
 [![Python](https://img.shields.io/badge/Made%20with-Python-blue.svg)](https://python.org)
 [![Linux](https://img.shields.io/badge/Built%20for-Linux-orange.svg)](https://www.linux.org/)
-[![Rundeck](https://img.shields.io/badge/Integrates%20with-Runbook%20Automation-red.svg)](https://www.rundeck.com/)
+[![Rundeck](https://img.shields.io/badge/Integrates%20with-Rundeck-red.svg)](https://www.rundeck.com/)
 
 </div>
