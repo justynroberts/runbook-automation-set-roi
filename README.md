@@ -22,13 +22,8 @@
 **Runbook Automation ROI Status** manages ROI metrics in Runbook Automation job definitions. It detects existing configurations, adds missing ROI fields, and tracks automation value across projects.
 
 ### 🎯 Key Capabilities
-
-- **🔍 Auto-Detection**: Detects existing ROI plugin configurations
 - **⚡ Bulk Processing**: Processes single projects or all projects
 - **🛡️ Dry-Run Mode**: Preview changes before applying
-- **📊 Metrics Tracking**: Standardized ROI field management
-- **🐧 Linux Support**: Virtual environment integration
-
 ---
 
 ## ✨ Features
@@ -38,7 +33,6 @@
 <td width="50%">
 
 ### 🔧 Core Functionality
-- ✅ Auto-detects existing ROI plugin configurations
 - ✅ Adds "hours" field to jobs that don't have it
 - ✅ Supports dry-run mode for safe testing
 - ✅ Processes single projects or all projects
@@ -48,7 +42,6 @@
 <td width="50%">
 
 ### 🚀 Advanced Features
-- ✅ Linux-optimized with virtual environment support
 - ✅ Configurable default values and API versions
 - ✅ Progress reporting and statistics
 - ✅ Environment variable credential management
