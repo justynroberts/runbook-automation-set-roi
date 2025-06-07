@@ -82,7 +82,7 @@
 
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone https://github.com/justynroberts/runbook-automation-set-roi.git
 cd runbook-automation-set-roi
 
 # Run the automated setup script
