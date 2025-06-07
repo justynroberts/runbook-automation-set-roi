@@ -5,11 +5,11 @@
 [![Python Version](https://img.shields.io/badge/python-3.7%2B-blue.svg)](https://python.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/platform-linux-lightgrey.svg)](https://www.linux.org/)
-[![Rundeck API](https://img.shields.io/badge/Rundeck%20API-v46-orange.svg)](https://docs.rundeck.com/docs/api/)
+[![Runbook Automation API](https://img.shields.io/badge/Runbook%20Automation%20API-v46-orange.svg)](https://docs.rundeck.com/docs/api/)
 [![Development Status](https://img.shields.io/badge/status-stable-green.svg)](https://github.com/yourusername/runbook-automation-set-roi)
 [![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-*A Python tool to manage ROI (Return on Investment) metrics for Rundeck jobs*
+*A Python tool to manage ROI (Return on Investment) metrics for Runbook Automation jobs*
 
 [Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Documentation](#-documentation) • [Contributing](#-contributing)
 
@@ -19,7 +19,7 @@
 
 ## 📋 Overview
 
-**Runbook Automation ROI Status** manages ROI metrics in Rundeck job definitions. It detects existing configurations, adds missing ROI fields, and tracks automation value across projects.
+**Runbook Automation ROI Status** manages ROI metrics in Runbook Automation job definitions. It detects existing configurations, adds missing ROI fields, and tracks automation value across projects.
 
 ### 🎯 Key Capabilities
 
@@ -66,11 +66,13 @@
 |-----------|---------|-------|
 | **Python** | 3.7+ | Required for type hints and features |
 | **Operating System** | Linux | Linux environment required |
-| **Rundeck Version** | Commercial Only | Runbook Automation or Runbook Automation Self-Hosted |
-| **Rundeck Access** | API Token Required | With appropriate permissions |
-| **Rundeck API** | v46 (configurable) | Supports other versions |
+| **Runbook Automation Version** | Commercial Only | Runbook Automation or Runbook Automation Self-Hosted |
+| **Runbook Automation Access** | API Token Required | With appropriate permissions |
+| **Runbook Automation API** | v46 (configurable) | Supports other versions |
 
-> **⚠️ Important**: This tool only works with commercial versions of Rundeck (Runbook Automation or Runbook Automation Self-Hosted) that include the ROI metrics plugin. It will not work with open-source Rundeck.
+> **⚠️ Important**: This tool only works with commercial versions of Runbook Automation (Runbook Automation or Runbook Automation Self-Hosted) that include the ROI metrics plugin. It will not work with open-source Runbook Automation.
+>
+> 📚 **Learn more**: [ROI Metrics Documentation](https://docs.rundeck.com/docs/manual/jobs/roi-metrics.html)
 
 ---
 
@@ -142,8 +144,8 @@ You can customize these values in [`main.py`](main.py):
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| `DEFAULT_HOURS_SAVED` | `2.0` | Default value for hours saved |
-| `API_VERSION` | `"46"` | Rundeck API version |
+| `DEFAULT_HOURS_SAVED` | `0.1667` | Default value for hours saved (10 minutes) |
+| `API_VERSION` | `"46"` | Runbook Automation API version |
 | Field key | `"hours"` | ROI field identifier |
 | Field label | `"Hours Saved By automation"` | Display label |
 
@@ -257,8 +259,8 @@ python main.py --apply
 ### 📈 Output Examples
 
 ```bash
-✅ [project] job_name - Already has hours (2.5)
-🆕 [project] job_name - add hours [2.0]
+✅ [project] job_name - Already has hours (0.25)
+🆕 [project] job_name - add hours [0.1667]
 ❌ [project] job_name - Failed to retrieve definition
 
 Summary:
@@ -281,7 +283,7 @@ graph LR
     A1[Scan existing jobs] --> A
     B1[Check ROI config] --> B
     C1[Add hours field] --> C
-    D1[Rundeck API import] --> D
+    D1[Runbook Automation API import] --> D
 ```
 
 </div>
@@ -289,16 +291,18 @@ graph LR
 1. **🔍 Auto-Detection**: Scans existing jobs to detect ROI plugin name
 2. **📊 Job Analysis**: Checks each job for existing ROI metrics configuration
 3. **➕ Field Addition**: Adds "hours" field to jobs that don't have it
-4. **🔒 Safe Updates**: Uses Rundeck's job import API with update mode
+4. **🔒 Safe Updates**: Uses Runbook Automation's job import API with update mode
 
 ### 📋 ROI Metrics Structure
+
+The tool adds ROI metrics in the standard format defined by Runbook Automation. For more details, see the [ROI Metrics Documentation](https://docs.rundeck.com/docs/manual/jobs/roi-metrics.html).
 
 ```json
 {
   "plugins": {
     "ExecutionLifecycle": {
       "roi-metrics-data": {
-        "userRoiData": "[{\"key\":\"hours\",\"label\":\"Hours Saved By automation\",\"desc\":\"Number of hours saved by this automation\",\"value\":\"2.0\"}]"
+        "userRoiData": "[{\"key\":\"hours\",\"label\":\"Hours Saved By automation\",\"desc\":\"Number of hours saved by this automation\",\"value\":\"0.1667\"}]"
       }
     }
   }
@@ -448,7 +452,7 @@ export RUNDECK_API_TOKEN='your-valid-token'
 
 ### 🎯 v1.0.0 (Initial Release)
 - Auto-detection of ROI plugin names
-- Bulk processing of Rundeck jobs
+- Bulk processing of Runbook Automation jobs
 - ROI metrics field addition
 - Project filtering support
 - Error handling
@@ -477,9 +481,10 @@ This project is licensed under the **MIT License**.
 **Need Help?** Follow these steps:
 
 1. 📖 Check the [troubleshooting section](#-troubleshooting)
-2. 📚 Review [Rundeck API documentation](https://docs.rundeck.com/docs/api/)
-3. ⚙️ Verify your environment configuration
-4. 🧪 Test with dry-run mode first
+2. 📚 Review [Runbook Automation API documentation](https://docs.rundeck.com/docs/api/)
+3. 📚 Review [ROI Metrics documentation](https://docs.rundeck.com/docs/manual/jobs/roi-metrics.html)
+4. ⚙️ Verify your environment configuration
+5. 🧪 Test with dry-run mode first
 
 </div>
 
@@ -500,6 +505,6 @@ This tool is provided **as-is** and is **not part of the general PagerDuty suppo
 
 [![Python](https://img.shields.io/badge/Made%20with-Python-blue.svg)](https://python.org)
 [![Linux](https://img.shields.io/badge/Built%20for-Linux-orange.svg)](https://www.linux.org/)
-[![Rundeck](https://img.shields.io/badge/Integrates%20with-Rundeck-red.svg)](https://www.rundeck.com/)
+[![Runbook Automation](https://img.shields.io/badge/Integrates%20with-Runbook%20Automation-red.svg)](https://www.rundeck.com/)
 
 </div>

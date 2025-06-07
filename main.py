@@ -18,7 +18,7 @@ RUNDECK_URL = ""  # Set via RUNDECK_URL environment variable
 API_TOKEN = ""    # Set via RUNDECK_API_TOKEN environment variable
 
 # ROI Metrics configuration
-DEFAULT_HOURS_SAVED = 2.0  # Default value for hours field
+DEFAULT_HOURS_SAVED = 0.1667  # Default value for hours field (10 minutes)
 
 # API configuration
 API_VERSION = "46"  # Rundeck API version to use
