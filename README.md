@@ -1,0 +1,483 @@
+<div align="center">
+
+# 🚀 Runbook Automation ROI Status
+
+[![Python Version](https://img.shields.io/badge/python-3.7%2B-blue.svg)](https://python.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Platform](https://img.shields.io/badge/platform-linux-lightgrey.svg)](https://www.linux.org/)
+[![Rundeck API](https://img.shields.io/badge/Runbook%20Automation%20API-v46-orange.svg)](https://docs.rundeck.com/docs/api/)
+[![Development Status](https://img.shields.io/badge/status-stable-green.svg)](https://github.com/yourusername/runbook-automation-set-roi)
+[![Code Style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
+*A powerful Python tool to automatically manage ROI (Return on Investment) metrics for Rundeck jobs*
+
+[Features](#-features) • [Installation](#-installation) • [Usage](#-usage) • [Documentation](#-documentation) • [Contributing](#-contributing)
+
+</div>
+
+---
+
+## 📋 Overview
+
+**Runbook Automation ROI Status** is a comprehensive Python tool designed to streamline the management of ROI metrics in Rundeck job definitions. It automatically detects existing configurations, adds missing ROI fields, and provides detailed analytics to track automation value across your infrastructure.
+
+### 🎯 Key Benefits
+
+- **🔍 Smart Detection**: Auto-detects existing ROI plugin configurations
+- **⚡ Bulk Processing**: Handles single projects or entire Rundeck instances
+- **🛡️ Safety First**: Comprehensive dry-run mode with detailed previews
+- **📊 Analytics Ready**: Tracks automation value with standardized metrics
+- **🐧 Linux Optimized**: Built specifically for Linux environments with `.venv` support
+
+---
+
+## ✨ Features
+
+<table>
+<tr>
+<td width="50%">
+
+### 🔧 Core Functionality
+- ✅ Auto-detects existing ROI plugin configurations
+- ✅ Adds "hours" field to jobs that don't have it
+- ✅ Supports dry-run mode for safe testing
+- ✅ Processes single projects or all projects
+- ✅ Comprehensive error handling and logging
+
+</td>
+<td width="50%">
+
+### 🚀 Advanced Features
+- ✅ Linux-optimized with virtual environment support
+- ✅ Configurable default values and API versions
+- ✅ Detailed progress reporting and statistics
+- ✅ Secure credential management via environment variables
+- ✅ Robust network error handling with timeouts
+
+</td>
+</tr>
+</table>
+
+---
+
+## 📋 Requirements
+
+| Component | Version | Notes |
+|-----------|---------|-------|
+| **Python** | 3.7+ | Required for modern async features |
+| **Operating System** | Linux | Optimized for Linux environments |
+| **Rundeck Access** | API Token Required | With appropriate permissions |
+| **Rundeck API** | v46 (configurable) | Supports other versions |
+
+---
+
+## 🚀 Installation
+
+### ⚡ Quick Setup (Recommended)
+
+```bash
+# Clone the repository
+git clone <repository-url>
+cd runbook-automation-set-roi
+
+# Run the automated setup script
+./setup_venv.sh
+```
+
+> **What this does:**
+> - Creates a Python virtual environment in `.venv`
+> - Installs all required dependencies
+> - Sets up the package for development
+
+### 🔧 Manual Setup
+
+<details>
+<summary>Click to expand manual installation steps</summary>
+
+```bash
+# 1. Create virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# 2. Install dependencies
+pip install -r requirements.txt
+pip install -e .
+```
+
+</details>
+
+---
+
+## ⚙️ Configuration
+
+### 🔑 Required Environment Variables
+
+```bash
+export RUNDECK_URL='https://your-rundeck-server.com'
+export RUNDECK_API_TOKEN='your-api-token'
+```
+
+### 🎛️ Optional Configuration
+
+You can customize these values in [`main.py`](main.py):
+
+| Setting | Default | Description |
+|---------|---------|-------------|
+| `DEFAULT_HOURS_SAVED` | `2.0` | Default value for hours saved |
+| `API_VERSION` | `"46"` | Rundeck API version |
+| Field key | `"hours"` | ROI field identifier |
+| Field label | `"Hours Saved By automation"` | Display label |
+
+---
+
+## 🎮 Usage
+
+### 🔄 Activate Virtual Environment
+
+```bash
+source .venv/bin/activate
+```
+
+### 📖 Command Reference
+
+<table>
+<tr>
+<th width="40%">Command</th>
+<th width="60%">Description</th>
+</tr>
+<tr>
+<td>
+
+```bash
+python main.py
+```
+
+</td>
+<td><strong>Default dry-run</strong> - Shows what would be changed</td>
+</tr>
+<tr>
+<td>
+
+```bash
+python main.py --dryrun
+```
+
+</td>
+<td><strong>Explicit dry-run</strong> - Safe preview mode</td>
+</tr>
+<tr>
+<td>
+
+```bash
+python main.py --apply
+```
+
+</td>
+<td><strong>Apply changes</strong> - Actually makes modifications</td>
+</tr>
+<tr>
+<td>
+
+```bash
+python main.py --project myproject --apply
+```
+
+</td>
+<td><strong>Project-specific</strong> - Target single project</td>
+</tr>
+</table>
+
+### 🎯 Command Line Options
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `--project PROJECT` | Process specific project | All projects |
+| `--dryrun` | Preview changes without applying | ✅ Default |
+| `--apply` | Apply changes to jobs | ❌ Explicit only |
+| `--help` | Show help message | - |
+
+> **⚠️ Safety Note**: The script defaults to dry-run mode. You must explicitly use `--apply` to make actual changes.
+
+### 💡 Usage Examples
+
+<details>
+<summary>📋 Common Usage Patterns</summary>
+
+```bash
+# 🔍 Preview all changes (safe exploration)
+python main.py
+
+# 🎯 Target specific project for testing
+python main.py --project development --dryrun
+
+# ✅ Apply changes to production project
+python main.py --project production --apply
+
+# 🚀 Full deployment (after testing)
+python main.py --apply
+```
+
+</details>
+
+---
+
+## 📊 Recent Improvements
+
+### 🎉 Version 2.0 Updates
+
+<div align="center">
+
+| 🐛 **Bug Fixes** | 🚀 **Enhancements** | 🛡️ **Safety** |
+|:---:|:---:|:---:|
+| Fixed duplicate job counting | Intuitive CLI with `--apply`/`--dryrun` | Default dry-run mode |
+| Resolved NoneType errors | Better output formatting | Mutually exclusive options |
+| Enhanced null checking | Clear progress indicators | Comprehensive validation |
+
+</div>
+
+### 📈 Output Examples
+
+```bash
+✅ [project] job_name - Already has hours (2.5)
+🆕 [project] job_name - add hours [2.0]
+❌ [project] job_name - Failed to retrieve definition
+
+Summary:
+Projects: 3 | Jobs: 25 | Updates: 8
+⚠️  Dry run complete - use --apply to apply changes
+```
+
+---
+
+## 🔧 How It Works
+
+<div align="center">
+
+```mermaid
+graph LR
+    A[🔍 Auto-Detection] --> B[📊 Job Analysis]
+    B --> C[➕ Field Addition]
+    C --> D[🔒 Safe Updates]
+    
+    A1[Scan existing jobs] --> A
+    B1[Check ROI config] --> B
+    C1[Add hours field] --> C
+    D1[Rundeck API import] --> D
+```
+
+</div>
+
+1. **🔍 Auto-Detection**: Scans existing jobs to detect ROI plugin name
+2. **📊 Job Analysis**: Checks each job for existing ROI metrics configuration
+3. **➕ Field Addition**: Adds "hours" field to jobs that don't have it
+4. **🔒 Safe Updates**: Uses Rundeck's job import API with update mode
+
+### 📋 ROI Metrics Structure
+
+```json
+{
+  "plugins": {
+    "ExecutionLifecycle": {
+      "roi-metrics-data": {
+        "userRoiData": "[{\"key\":\"hours\",\"label\":\"Hours Saved By automation\",\"desc\":\"Number of hours saved by this automation\",\"value\":\"2.0\"}]"
+      }
+    }
+  }
+}
+```
+
+---
+
+## 🛡️ Security & Error Handling
+
+### 🔐 Security Features
+
+- ✅ API tokens read from environment variables
+- ✅ No credentials stored in code
+- ✅ HTTPS support for secure communication
+- ✅ Request timeouts to prevent hanging
+
+### 🚨 Comprehensive Error Handling
+
+<table>
+<tr>
+<td width="50%">
+
+**Network & API Errors**
+- Network timeouts and connection errors
+- Invalid API responses
+- Authentication failures
+
+</td>
+<td width="50%">
+
+**Data & Configuration Errors**
+- Missing or malformed job definitions
+- Plugin detection issues
+- Invalid ExecutionLifecycle structures
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🔧 Troubleshooting
+
+<details>
+<summary>🚨 Common Issues & Solutions</summary>
+
+### 1. **"Could not auto-detect ROI plugin name"**
+```bash
+# Solution: Ensure at least one job has ROI metrics configured
+# Check that plugin name contains "roi" and "metric"
+```
+
+### 2. **"Connection error"**
+```bash
+# Solution: Verify RUNDECK_URL and network connectivity
+export RUNDECK_URL='https://your-rundeck-server.com'
+```
+
+### 3. **"HTTP error 401"**
+```bash
+# Solution: Verify API token validity and permissions
+export RUNDECK_API_TOKEN='your-valid-token'
+```
+
+### 4. **"No projects found"**
+```bash
+# Solution: Check API token project access permissions
+```
+
+</details>
+
+---
+
+## 🏗️ Development
+
+### 📁 Project Structure
+
+```
+📦 runbook-automation-set-roi/
+├── 🐍 main.py              # Main application code
+├── 📋 requirements.txt     # Python dependencies
+├── ⚙️ setup.py            # Package setup configuration
+├── 🚀 setup_venv.sh       # Virtual environment setup script
+└── 📖 README.md           # This documentation
+```
+
+### 🧪 Testing and Validation
+
+<div align="center">
+
+| Step | Command | Purpose |
+|:----:|:--------|:--------|
+| **1** | `python main.py --project test-project --dryrun` | 🔍 Test with dry-run |
+| **2** | `python main.py --project single-project --apply` | ✅ Validate single project |
+| **3** | `python main.py --apply` | 🚀 Full deployment |
+
+</div>
+
+### 🤝 Contributing
+
+1. 🍴 Fork the repository
+2. 🌿 Create a feature branch
+3. 🔧 Make changes in the virtual environment
+4. 🧪 Test thoroughly with `--dryrun` mode first
+5. ✅ Validate with `--apply` on test projects
+6. 📤 Submit a pull request
+
+### 📏 Best Practices
+
+<table>
+<tr>
+<td>
+
+**🛡️ Safety First**
+- Always run dry-run first
+- Test on single projects
+- Monitor output for errors
+
+</td>
+<td>
+
+**📊 Deployment Strategy**
+- Backup job definitions
+- Incremental deployment
+- Monitor for issues
+
+</td>
+</tr>
+</table>
+
+---
+
+## 📝 Changelog
+
+<details>
+<summary>📋 Version History</summary>
+
+### 🎉 v2.0.1 (Latest)
+- **🐛 CRITICAL FIX**: Resolved NoneType errors in job processing
+- **🔧 Enhanced**: Better null checking for job definitions
+- **📊 Improved**: More robust error handling for malformed data
+- **✅ Fixed**: ExecutionLifecycle validation issues
+- **🧹 Added**: Automatic cleanup of None values
+- **📝 Improved**: Better error messages for debugging
+
+### 🚀 v2.0.0
+- **💥 BREAKING**: Changed CLI from `--no-dry-run` to `--dryrun`/`--apply`
+- **🐛 Fixed**: Job counting accuracy in dry-run mode
+- **✨ Enhanced**: Output formatting with "add hours [value]" format
+- **🛡️ Improved**: Default dry-run mode for safety
+- **⚙️ Added**: Mutually exclusive command line options
+
+### 🎯 v1.0.0 (Initial Release)
+- Auto-detection of ROI plugin names
+- Bulk processing of Rundeck jobs
+- ROI metrics field addition
+- Project filtering support
+- Comprehensive error handling
+- Linux virtual environment support
+
+</details>
+
+---
+
+## 📄 License
+
+<div align="center">
+
+This project is licensed under the **MIT License**.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+</div>
+
+---
+
+## 🆘 Support
+
+<div align="center">
+
+**Need Help?** Follow these steps:
+
+1. 📖 Check the [troubleshooting section](#-troubleshooting)
+2. 📚 Review [Rundeck API documentation](https://docs.rundeck.com/docs/api/)
+3. ⚙️ Verify your environment configuration
+4. 🧪 Test with dry-run mode first
+
+</div>
+
+---
+
+<div align="center">
+
+**Made with ❤️ for the DevOps Community**
+
+[![Python](https://img.shields.io/badge/Made%20with-Python-blue.svg)](https://python.org)
+[![Linux](https://img.shields.io/badge/Built%20for-Linux-orange.svg)](https://www.linux.org/)
+[![Rundeck](https://img.shields.io/badge/Integrates%20with-Runbook%20Automation-red.svg)](https://www.rundeck.com/)
+
+</div>
